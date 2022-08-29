@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8">
+    <meta name='viewport' content="width=device-width,initial-scale=1.0">
+    <head>
+<title>music</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel='stylesheet' type="text/css" href="style.css"/>
+</head>
+<body>
+<div class="main_div">
+    <div class='music_container'>
+        <h2 id="title">din shagna</h2>
+        <h3 id="artist">gurnazar</h3>
+        <div class="img_container">
+            <img src="images/pic2.jpg" alt="error"/>
+        </div>
+        <audio src="music/m1.mp3"></audio>
+        <div class="music_controls">
+            <i class="fas fa-backward" id="prev" title="previous"></i>
+            <i class="fas fa-play main_button" id="play" title="play"></i>
+            <i class="fas fa-forward" id="next"title="next"></i>
+        </div>
+    </div>
+</div>
+<script>
+    const music=document.querySelector('audio');
+    const img=document.querySelector('img');
+    const title= document.getElementById('title');
+    const artist= document.getElementById('artist');
+    const play=document.querySelector('#play');
+    const prev=document.querySelector('#prev');
+   const next= document.querySelector('#next');
+    let isplaying=false;
+    const decide=()=>{
+
+       const pausefunc=()=>{
+        isplaying=false;
+        music.pause();
+        play.classList.replace('fa-pause', 'fa-play');
+    }
+   const playfunc=()=>{
+        isplaying=true;
+        music.play();
+        play.classList.replace('fa-play','fa-pause');
+    }
+
+if(isplaying){
+pausefunc();
+}
+else{
+playfunc();
+}
+ }
+
+ const song=[
+    {
+        name:"mehbooba",
+        title:'mehbooba',
+artist:'arijit singh',
+    },
+    {
+        name:"kesariya",
+        title:'kesariya',
+artist:'arijit singh',
+    },
+    {
+        name:"nain",
+        title:'nain ta',
+artist:'singer1',
+    },
+ ];
+let songIndex=0;
+ const loadsong=(song)=>{
+title.textContent=song.title;
+artist.textContent=song.artist;
+music.src='music/'+song.name+'.mp3';
+img.src='images/'+ song.name+'.jpg';
+ }
+ const nextsong=()=>{
+    songIndex=(songIndex+1)%song.length;
+    loadsong(song[songIndex]);
+    music.play();
+ };
+
+ //checking whether the function pause or play should based on isplaying variable
+   play.addEventListener('click',decide);
+   next.addEventListener('click',nextsong);
+</script>
+</body>
